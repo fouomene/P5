@@ -20,18 +20,18 @@ public class FareCalculatorService {
     Duration duration = Duration.between(inHour, outHour);
 
     // Get the seconds from the duration and convert them in hours
-    double durationInMinutes = (double) duration.toSeconds()/3600;
+    double durationInHours = (double) duration.toSeconds()/3600;
 
     switch (ticket.getParkingSpot().getParkingType()){
       case CAR: {
         // TERNARY IF
-        // IF durationInMinutes < 0.5 THEN the price = 0 ELSE : durationInMinutes - 0.5 min free * FARE
-        double price = (durationInMinutes < 0.5) ? 0: (durationInMinutes - 0.5) * Fare.CAR_RATE_PER_HOUR;
+        // IF durationInHours < 0.5 THEN the price = 0 ELSE : durationInHours - 0.5 min free * FARE
+        double price = (durationInHours < 0.5) ? 0: (durationInHours - 0.5) * Fare.CAR_RATE_PER_HOUR;
         ticket.setPrice(price);
         break;
       }
       case BIKE: {
-        double price = (durationInMinutes < 0.5) ? 0: (durationInMinutes - 0.5) * Fare.BIKE_RATE_PER_HOUR;
+        double price = (durationInHours < 0.5) ? 0: (durationInHours - 0.5) * Fare.BIKE_RATE_PER_HOUR;
         ticket.setPrice(price);
       break;
       }

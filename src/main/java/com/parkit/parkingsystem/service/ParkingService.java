@@ -120,7 +120,6 @@ public class ParkingService {
                 double ticketWithDiscount = ticket.getPrice() - (ticket.getPrice() * 0.05);
                 ticket.setPrice(ticketWithDiscount);
             }
-
             ticketDAO.updateTicket(ticket);
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();

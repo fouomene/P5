@@ -54,7 +54,8 @@ public class ParkingServiceRegularUserTest {
             throw  new RuntimeException("Failed to set up test mock objects");
         }
     }
-/*
+
+    // Check out if the system recognize a regular vehicle 
     @Test
     public void processExitingRegularVehicleTest(){
         List<Ticket> tickets = new ArrayList<Ticket>();
@@ -76,63 +77,5 @@ public class ParkingServiceRegularUserTest {
         Ticket ticketRegular = ticketDAO.getTicket("ABCDEF");
         assertEquals(0.7125, ticketRegular.getPrice());
     }
-
-    @Test
-    public void processExitRegularVehicleTest1(){
-        List<Ticket> tickets = new ArrayList<Ticket>();
-
-        Ticket ticket = new Ticket();
-        ticket.setInTime(LocalDateTime.now().minusMinutes(90));
-        ticket.setVehicleRegNumber("ABCDEF");
-        tickets.add(ticket);
-
-        Ticket ticketBis = new Ticket();
-        ticket.setInTime(LocalDateTime.now().minusMinutes(90));
-        ticket.setVehicleRegNumber("ABCDEF");
-        tickets.add(ticketBis);
-
-        when(ticketDAO.getAllTickets(anyString())).thenReturn(tickets);
-
-        parkingService.processExitingVehicle();//
-        verify(ticketDAO, Mockito.times(1)).getAllTickets(anyString());
-        Ticket ticketRegular = ticketDAO.getTicket("ABCDEF");
-        assertEquals(1.425, ticketRegular.getPrice());
-    }
-
-
-
-
-    // Check out that a ticket with the correct fare is generated (5% discount)
-    @Test
-    public void processExitRegularVehicleTest2(){
-        List<Ticket> tickets = new ArrayList<Ticket>();
-
-        // First ticket 
-        // Price for a bike = (1.5 hours - 30 min free) * 1 = 1
-        Ticket ticket = new Ticket();
-        ticket.setInTime(LocalDateTime.now().minusMinutes(90));
-        ticket.setVehicleRegNumber("ABCDEF");
-        tickets.add(ticket);
-
-        // Second ticket
-        // Price for a bike = (1.5 hours - 30 min free) * 1 * 5% discount = > 
-        Ticket secondTicket = new Ticket();
-        ticket.setInTime(LocalDateTime.now().minusMinutes(90));
-       // ticket.setVehicleRegNumber("ABCDEF");
-        tickets.add(secondTicket);
-
-        // Get the list of all the tickets of the regular user
-        when(ticketDAO.getAllTickets(anyString())).thenReturn(tickets);
-
-        // Compare the price for 1H for a bike with 5% discount : 1.425, with the price on the ticket (which should be )
-        parkingService.processExitingVehicle();
-        verify(ticketDAO, Mockito.times(1)).getAllTickets(anyString());
-        Ticket ticketRegularUser = ticketDAO.getTicket("ABCDEF");
-        assertEquals(0.95, ticketRegularUser.getPrice());
-    }
-
-
-*/
-
 
 }

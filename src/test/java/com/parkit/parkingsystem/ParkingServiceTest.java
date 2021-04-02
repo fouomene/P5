@@ -78,18 +78,15 @@ public class ParkingServiceTest {
     // Check out if the exit of the vehicle is processed correctly and that the exit time is updated in the DB (not null)
     @Test
     public void testParkingCarExit(){
-       // testParkingAVehicle();
        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
        parkingService.processIncomingVehicle();
        Ticket testTicket = ticketDAO.getTicket("ABCDEF");
         try {
             TimeUnit.SECONDS.sleep(1);
-           // ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
             parkingService.processExitingVehicle();
         } catch (Exception e) {
             System.out.println(e);
         }
-       // Ticket testTicket = ticketDAO.getTicket("ABCDEF");
         assertNotNull(testTicket.getOutTime());
         assertNotNull(testTicket);
     }  

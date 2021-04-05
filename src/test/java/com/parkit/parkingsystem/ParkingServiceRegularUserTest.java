@@ -36,13 +36,13 @@ public class ParkingServiceRegularUserTest {
     @BeforeEach
     private void setUpPerTest() {
         try {
-            when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
+            when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("TEST01");
 
-            ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
+            ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE,false);
             Ticket ticket = new Ticket();
             ticket.setInTime(LocalDateTime.now().minusHours(1));
             ticket.setParkingSpot(parkingSpot);
-            ticket.setVehicleRegNumber("ABCDEF");
+            ticket.setVehicleRegNumber("TEST01");
             when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
             when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
 
@@ -55,27 +55,28 @@ public class ParkingServiceRegularUserTest {
         }
     }
 
-    // Check out if the system recognize a regular vehicle 
+    // Check out if the system recognize a regular vehicle, and if the fare is correct : 30 min free + 5% discount
+    // FARE : 1H - 30 min free = "30 min * BIKE.Fare - discount regular customer" => (0,5 * 1) - 5% = 0,475
     @Test
     public void processExitingRegularVehicleTest(){
         List<Ticket> tickets = new ArrayList<Ticket>();
 
         Ticket ticket = new Ticket();
         ticket.setInTime(LocalDateTime.now().minusHours(1));
-        ticket.setVehicleRegNumber("ABCDEF");
+        ticket.setVehicleRegNumber("TEST01");
         tickets.add(ticket);
 
         Ticket ticketBis = new Ticket();
         ticket.setInTime(LocalDateTime.now().minusHours(1));
-        ticket.setVehicleRegNumber("ABCDEF");
+        ticket.setVehicleRegNumber("TEST01");
         tickets.add(ticketBis);
 
         when(ticketDAO.getAllTickets(anyString())).thenReturn(tickets);
 
         parkingService.processExitingVehicle();
         verify(ticketDAO, Mockito.times(1)).getAllTickets(anyString());
-        Ticket ticketRegular = ticketDAO.getTicket("ABCDEF");
-        assertEquals(0.7125, ticketRegular.getPrice());
+        Ticket ticketRegular = ticketDAO.getTicket("TEST01");
+        assertEquals(0.475, ticketRegular.getPrice());
     }
 
 }

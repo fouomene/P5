@@ -75,7 +75,7 @@ public class ParkingServiceTest {
     }
 
 
-    // Check out if the exit of the vehicle is processed correctly and that the exit time is updated in the DB (not null)
+    // Check out if the ticket is saved in the DB and that the exit time is updated in the DB (not null)
     @Test
     public void testParkingCarExit(){
        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);

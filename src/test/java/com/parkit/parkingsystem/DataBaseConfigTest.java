@@ -15,9 +15,9 @@ public class DataBaseConfigTest {
     dataBaseConfig = new DataBaseConfig();
   }
 
-  // Check ou the connexion to the DB
+  // Check out the connexion to the DB
   @Test
-  public void chekOutDatabaseConnection() throws ClassNotFoundException, SQLException {
+  public void checkOutDatabaseConnection() throws ClassNotFoundException, SQLException {
 
     Connection connection;
 
